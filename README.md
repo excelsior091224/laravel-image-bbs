@@ -16,6 +16,7 @@ An image BBS created for Laravel learning. Thread creation, post texts and image
 1. /laravel-image-bbsを任意のフォルダに配置する。
 
 Place /laravel-image-bbs in any folder.
+
 2. /laravel-image-bbs/config/database.php及び/laravel-image-bbs/.envを使用するデータベースに合わせて追記する。
 
 Add /laravel-image-bbs/config/database.php and /laravel-image-bbs/.env according to the database to be used.
