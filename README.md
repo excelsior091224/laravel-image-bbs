@@ -71,13 +71,12 @@ DB_PASSWORD=XXXXXXXXXXXXX
 3. コマンドラインでlaravel-image-bbsの場所に移動し、以下のコマンドを実行せよ。
 
 Go to the location of laravel-image-bbs on the command line and execute the following command.
+
     1. `php artisan migrate`
     このコマンドでデータベースにテーブルが作成される。
-    
     This command creates a table in the database.
     2. `php artisan serve`
     このコマンドで開発サーバーが起動する。
-    
     This command starts the development server.
 4. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
 
