@@ -9,9 +9,9 @@ An image BBS created for Laravel learning. Thread creation, post texts and image
 
 **It is for personal learning only, so please do not use it on a public web server.**
 ### 使い方
-**実行にはXAMPPなどのPHP開発環境が必要です。**
+**実行にはXAMPPなどのPHP開発環境が必要です。また、あらかじめComposerをインストールしてLaravelが使える状態にしてください。**
 
-**A PHP development environment such as XAMPP is required for execution.**
+**A PHP development environment such as XAMPP is required for execution. In addition, please install Composer in advance and make Laravel usable.**
 
 1. /laravel-image-bbsを任意のフォルダに配置する。
 
