@@ -82,12 +82,15 @@ Go to the location of laravel-image-bbs on the command line and execute the foll
     If you don't see the following, it's likely that Composer isn't installed or isn't in your path.
     `composer: Command not found.`
     Install Composer and move composer.phar to the path location or into this program directory so that you can use Composer commands.
+    
     2. `php artisan migrate`
     このコマンドでデータベースにテーブルが作成される。
     This command creates a table in the database.
+    
     3. `php artisan serve`
     このコマンドで開発サーバーが起動する。
     This command starts the development server.
+
 4. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
 
 You should be able to use the BBS by accessing `http://localost:8000/index`.
