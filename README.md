@@ -72,10 +72,20 @@ DB_PASSWORD=XXXXXXXXXXXXX
 
 Go to the location of laravel-image-bbs on the command line and execute the following command.
 
-    1. `php artisan migrate`
+    1. `composer install`
+    このコマンドでLaravelが使えるようになる。
+    もし
+    `composer: Command not found.`
+    と表示された場合、Composerがインストールされてないかパスを通ってないと思われる。
+    Composerをインストールし、パスを通すかcomposer.pharをこのプログラムの中に入れてコマンドを使えるようにすること。
+    This command allows you to use Laravel.
+    If you don't see the following, it's likely that Composer isn't installed or isn't in your path.
+    `composer: Command not found.`
+    Install Composer and move composer.phar to the path location or into this program directory so that you can use Composer commands.
+    2. `php artisan migrate`
     このコマンドでデータベースにテーブルが作成される。
     This command creates a table in the database.
-    2. `php artisan serve`
+    3. `php artisan serve`
     このコマンドで開発サーバーが起動する。
     This command starts the development server.
 4. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
