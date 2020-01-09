@@ -17,9 +17,26 @@ An image BBS created for Laravel learning. Thread creation, post texts and image
 
 Place /laravel-image-bbs in any folder.
 
-2. /laravel-image-bbs/config/database.php及び/laravel-image-bbs/.envを使用するデータベースに合わせて追記する。
+2.　/laravel-image-bbs/.env.exampleを/laravel-image-bbs/.envという名前にしてコピーし、使用するデータベースに合わせて追記する。
 
-Add /laravel-image-bbs/config/database.php and /laravel-image-bbs/.env according to the database to be used.
+Copy /laravel-image-bbs/.env.example as /laravel-image-bbs/.env and add it according to the database to be used.
+
+例(example /laravel-image-bbs/.env)
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=XXXXXXXX
+DB_USERNAME=XXXXXXXXXXXX
+DB_PASSWORD=XXXXXXXXXXXXX
+
+// rewrite DB_CONNECTION, DB_DATABASE, DB_USERNAME and DB_PASSWORD according to your database setting.
+```
+
+3. /laravel-image-bbs/config/database.phpを使用するデータベースに合わせて追記する。
+
+Add /laravel-image-bbs/config/database.php according to the database to be used.
 
 例(example /laravel-image-bbs/config/database.php)
 
@@ -56,19 +73,7 @@ Add /laravel-image-bbs/config/database.php and /laravel-image-bbs/.env according
         // replace "xxxxxx" according to your database setting.
 ```
 
-例(example /laravel-image-bbs/.env)
-
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=XXXXXXXX
-DB_USERNAME=XXXXXXXXXXXX
-DB_PASSWORD=XXXXXXXXXXXXX
-
-// rewrite DB_CONNECTION, DB_DATABASE, DB_USERNAME and DB_PASSWORD according to your database setting.
-```
-3. コマンドラインでlaravel-image-bbsの場所に移動し、以下のコマンドを実行せよ。
+4. コマンドラインでlaravel-image-bbsの場所に移動し、以下のコマンドを実行せよ。
 
 Go to the location of laravel-image-bbs on the command line and execute the following command.
 
@@ -91,7 +96,7 @@ Go to the location of laravel-image-bbs on the command line and execute the foll
     このコマンドで開発サーバーが起動する。
     This command starts the development server.
 
-4. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
+5. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
 
 You should be able to use the BBS by accessing `http://localost:8000/index`.
 
