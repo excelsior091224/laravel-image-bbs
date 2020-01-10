@@ -96,7 +96,9 @@ class ThreadController extends Controller
         $threadname = $result['threadName'];
         $name = $req->session()->pull('name','');
         $text = $req->session()->pull('text','');
-        $filename = $req->session()->pull('filename','');
+        if ($req->session()->get('filename')) {
+            $filename = $req->session()->pull('filename','');
+        }
         $now = Carbon::now();
         $datetime = $now->format('Y-m-d H:i:s');
         
@@ -108,10 +110,14 @@ class ThreadController extends Controller
         $p->fill(['noInThread' => $no]);
         $p->fill(['name' => $name]);
         $p->fill(['text' => $text]);
-        $p->fill(['imageName' => $filename]);
+        if (isset($filename)) {
+            $p->fill(['imageName' => $filename]);
+        }
         $p->save();
         
-        Storage::move('public/tmp/'.$filename, 'public/img/'.$filename);
+        if (isset($filename)) {
+            Storage::move('public/tmp/'.$filename, 'public/img/'.$filename);
+        }
         
         Thread::where('threadId',$threadId)->update(['last_posted' => $datetime]);
         

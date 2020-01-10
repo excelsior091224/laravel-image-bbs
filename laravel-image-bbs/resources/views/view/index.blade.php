@@ -34,7 +34,38 @@
 </div>
 <div>
     @foreach($threads as $thread)
+    <hr>
     <p><a href="/thread/{{$thread->threadId}}">{{$thread->threadName}}</a> : {{$thread->last_posted}}</p>
+    <div>
+        @if (count($thread->posts) > 6)
+        <div>
+            <p>{{$thread->posts[0]->noInThread}} : {{$thread->posts[0]->name}} : {{$thread->posts[0]->created_at}}</p>
+            <p>{!!nl2br(e($thread->posts[0]->text))!!}</p>
+            @if($thread->posts[0]->imageName !== NULL)
+            <a href="{{asset('storage/img/'.$thread->posts[0]->imageName)}}"><img src="{{asset('storage/img/'.$thread->posts[0]->imageName)}}"></a>
+            @endif
+        </div>
+        @for ($i = 5; $i > 0; $i--)
+        <div>
+            <p>{{$thread->posts[count($thread->posts) - $i]->noInThread}} : {{$thread->posts[count($thread->posts) - $i]->name}} : {{$thread->posts[count($thread->posts) - $i]->created_at}}</p>
+            <p>{!!nl2br(e($thread->posts[count($thread->posts) - $i]->text))!!}</p>
+            @if($thread->posts[count($thread->posts) - $i]->imageName !== NULL)
+            <a href="{{asset('storage/img/'.$thread->posts[count($thread->posts) - $i]->imageName)}}"><img src="{{asset('storage/img/'.$thread->posts[count($thread->posts) - $i]->imageName)}}"></a>
+            @endif
+        </div>
+        @endfor
+        @else
+        @foreach($thread->posts as $post)
+        <div>
+            <p>{{$post->noInThread}} : {{$post->name}} : {{$post->created_at}}</p>
+            <p>{!!nl2br(e($post->text))!!}</p>
+            @if($post->imageName !== NULL)
+            <a href="{{asset('storage/img/'.$post->imageName)}}"><img src="{{asset('storage/img/'.$post->imageName)}}"></a>
+            @endif
+        </div>
+        @endforeach
+        @endif
+    </div>
     @endforeach
 </div>
 @endsection
