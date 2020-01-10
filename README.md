@@ -34,46 +34,7 @@ DB_PASSWORD=XXXXXXXXXXXXX
 // rewrite DB_CONNECTION, DB_DATABASE, DB_USERNAME and DB_PASSWORD according to your database setting.
 ```
 
-3. /laravel-image-bbs/config/database.phpを使用するデータベースに合わせて追記する。
-
-Add /laravel-image-bbs/config/database.php according to the database to be used.
-
-例(example /laravel-image-bbs/config/database.php)
-
-```
-    'connections' => [
-
-        'sqlite' => [
-            'driver' => 'sqlite',
-            'url' => env('DATABASE_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-        ],
-
-        'mysql' => [
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'xxxxxx'),
-            'username' => env('DB_USERNAME', 'xxxxxxxxx'),
-            'password' => env('DB_PASSWORD', 'xxxxxxxxxxx'),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? array_filter([
-                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
-        ],
-        // replace "xxxxxx" according to your database setting.
-```
-
-4. コマンドラインでlaravel-image-bbsの場所に移動し、以下のコマンドを実行せよ。
+3. コマンドラインでlaravel-image-bbsの場所に移動し、以下のコマンドを実行せよ。
 
 Go to the location of laravel-image-bbs on the command line and execute the following command.
 
@@ -96,7 +57,7 @@ Go to the location of laravel-image-bbs on the command line and execute the foll
     このコマンドで開発サーバーが起動する。
     This command starts the development server.
 
-5. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
+4. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
 
 You should be able to use the BBS by accessing `http://localost:8000/index`.
 
