@@ -15,7 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('threadId');
+            $table->bigInteger('threadId');
             $table->integer('noInThread');
             $table->string('name');
             $table->string('text');
