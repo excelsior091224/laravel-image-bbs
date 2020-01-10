@@ -56,8 +56,12 @@ Go to the location of laravel-image-bbs on the command line and execute the foll
     3. `php artisan serve`
     このコマンドで開発サーバーが起動する。
     This command starts the development server.
+    
+    4. `php artisan storage:link`
+    このコマンドでストレージへのシンボリックリンクが貼られ、アップロードした画像ファイルにアクセスできる。
+    This command attaches a symbolic link to the storage and allows you to access the uploaded image file.    
 
-4. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
+5. `http://localost:8000/index` にアクセスすることで、掲示板を使用することができるはずである。
 
 You should be able to use the BBS by accessing `http://localost:8000/index`.
 
