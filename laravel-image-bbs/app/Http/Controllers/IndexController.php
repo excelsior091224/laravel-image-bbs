@@ -8,6 +8,7 @@ use App\Post;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -171,6 +172,14 @@ class IndexController extends Controller
             'result'=>1,
             'threadId'=>$threadid,
             'threadName'=>$threadname
+            ]);
+    }
+    
+    public function listofposts()
+    {
+        $results = Post::orderBy('created_at', 'desc')->paginate(10);
+        return view('view.listofposts', [
+            'posts' => $results
             ]);
     }
 }

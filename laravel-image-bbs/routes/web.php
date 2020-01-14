@@ -19,6 +19,7 @@ Route::get('test', 'IndexController@test');
 Route::get('index', 'IndexController@index');
 Route::post('index/confirm', 'IndexController@confirm');
 Route::post('index/success', 'IndexController@success');
+Route::get('index/listofposts', 'IndexController@listofposts');
 Route::get('thread/{threadId}', 'ThreadController@thread');
 Route::post('/thread/{threadId}/confirm', 'ThreadController@confirm');
 Route::post('/thread/{threadId}/success', 'ThreadController@success');

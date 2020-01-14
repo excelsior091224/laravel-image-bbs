@@ -1,13 +1,14 @@
 @extends('layouts.base')
 @section('title', '投稿完了')
+@section('meta')
+<meta http-equiv="refresh"content="5; url=/thread/{{$threadId}}">
+@endsection
 @section('main')
 <div>
     @isset($result)
-    <p>投稿が完了しました。</p>
-    <a href="/thread/{{$threadId}}">{{$threadName}}</a><br>
-    <a href="/index">トップへ</a>
+    <p>投稿が完了しました。5秒後にスレッドに戻ります。</p>
     @else
-    <p>スレッドの作成に失敗しました。</p>
+    <p>投稿に失敗しました。</p>
     <a href="/index">トップへ</a>
     @endisset
 </div>

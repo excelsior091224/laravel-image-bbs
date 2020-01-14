@@ -1,6 +1,10 @@
 @extends('layouts.base')
 @section('title', 'トップページ')
 @section('main')
+<div>
+    <p><a href="index/listofposts">投稿一覧</a></p>
+</div>
+<hr>
 <div class="container">
     @if(session('error1'))
     <p>{{session('error1')}}</p>
