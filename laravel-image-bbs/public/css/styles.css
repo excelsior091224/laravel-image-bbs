@@ -3,3 +3,24 @@ img {
     width: 400px;
     height: auto;
 }
+
+#form {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid green;
+    box-shadow:5px 5px 10px
+}
+
+#thread {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow:5px 5px 10px
+}
+
+#post {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid blue;
+    box-shadow:5px 5px 10px;
+}

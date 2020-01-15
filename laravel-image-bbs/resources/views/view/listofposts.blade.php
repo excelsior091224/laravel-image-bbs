@@ -6,13 +6,15 @@
 </div>
 <hr>
 @foreach($posts as $post)
-<div>
+<div id="thread">
     <p><a href="/thread/{{$post->thread->threadId}}">{{$post->thread->threadName}}</a></p>
-    <p>{{$post->noInThread}} : {{$post->name}} : {{$post->created_at}}</p>
-    <p>{!!nl2br(e($post->text))!!}</p>
-    @if($post->imageName !== NULL)
-    <a href="{{asset('storage/img/'.$post->imageName)}}"><img src="{{asset('storage/img/'.$post->imageName)}}"></a>
-    @endif
+    <div id="post">
+        <p>{{$post->noInThread}} : {{$post->name}} : {{$post->created_at}}</p>
+        <p>{!!nl2br(e($post->text))!!}</p>
+        @if($post->imageName !== NULL)
+        <a href="{{asset('storage/img/'.$post->imageName)}}"><img src="{{asset('storage/img/'.$post->imageName)}}"></a>
+        @endif
+    </div>
 </div>
 <hr>
 @endforeach
