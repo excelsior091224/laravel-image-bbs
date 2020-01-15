@@ -2,12 +2,12 @@
 @section('title', '投稿一覧')
 @section('main')
 <div>
-    <a href="/index">トップページへ</a>
+    <a href="{{route('index')}}">トップページへ</a>
 </div>
 <hr>
 @foreach($posts as $post)
 <div id="thread">
-    <p><a href="/thread/{{$post->thread->threadId}}">{{$post->thread->threadName}}</a></p>
+    <p><a href="{{route('thread', ['threadId' => $post->thread->threadId])}}">{{$post->thread->threadName}}</a></p>
     <div id="post">
         <p>{{$post->noInThread}} : {{$post->name}} : {{$post->created_at}}</p>
         <p>{!!nl2br(e($post->text))!!}</p>
@@ -19,5 +19,5 @@
 <hr>
 @endforeach
 {{ $posts->links() }}<br>
-<a href="/index">トップページへ</a>
+<a href="{{route('index')}}">トップページへ</a>
 @endsection

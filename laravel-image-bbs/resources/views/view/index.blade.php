@@ -2,9 +2,10 @@
 @section('title', 'トップページ')
 @section('main')
 <div>
-    <p><a href="index/listofposts">投稿一覧</a></p>
+    <p><a href="{{route('listofposts')}}">投稿一覧</a></p>
     <hr>
     <div id="form">
+        <h5>スレッド作成</h5>
         @if(session('error1'))
         <p>{{session('error1')}}</p>
         @endif
@@ -14,7 +15,7 @@
         @if(session('error3'))
         <p>{{session('error3')}}</p>
         @endif
-        <form class="col-sm" action="/index/confirm" method="post" enctype="multipart/form-data">
+        <form class="col-sm" action="{{route('threadconfirm')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group col-sm">
                 <label for="threadname">スレッド名：</label>
@@ -40,7 +41,7 @@
     @foreach($threads as $thread)
     <div id="thread">
         <h5>
-            <a href="/thread/{{$thread->threadId}}">{{$thread->threadName}}</a> : {{$thread->last_posted}}
+            <a href="{{route('thread', ['threadId' => $thread->threadId])}}">{{$thread->threadName}}</a> : {{$thread->last_posted}}
         </h5>
         @if (count($thread->posts) > 6)
         <div id="post">

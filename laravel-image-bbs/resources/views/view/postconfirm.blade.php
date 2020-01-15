@@ -2,7 +2,7 @@
 @section('title', '投稿確認')
 @section('main')
 <div class="container">
-    <form action="/thread/{{$thread->threadId}}/success" method="post" enctype="multipart/form-data">
+    <form action="{{route('postsuccess', ['threadId' => $thread->threadId])}}" method="post" enctype="multipart/form-data">
         @csrf
         <label>名前：</label><br>
         {{$name}}<br>
@@ -13,7 +13,7 @@
         @endisset
         <input class="btn btn-primary" type="submit" name="action" value="投稿"/>
     </form>
-    <a href="/thread/{{$thread->threadId}}">戻る</a><br>
-    <a href="/index">トップページへ</a>
+    <a href="{{route('thread', ['threadId' => $thread->threadId])}}">戻る</a><br>
+    <a href="{{route('index')}}">トップページへ</a>
 </div>
 @endsection

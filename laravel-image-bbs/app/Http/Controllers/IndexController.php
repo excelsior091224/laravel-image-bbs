@@ -12,14 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-    //
-    public function test()
-    {
-        return view('view.test', [
-            'msg'=>'テスト'
-            ]);
-    }
-    
     public function index(Request $req)
     {
         $results = Thread::orderBy('last_posted', 'desc')->get();

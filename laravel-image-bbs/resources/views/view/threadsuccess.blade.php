@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('title', 'スレッド作成完了')
 @section('meta')
-<meta http-equiv="refresh"content="5; url=/thread/{{$threadId}}">
+<meta http-equiv="refresh"content="5; url={{route('thread', ['threadId' => $threadId])}}">
 @endsection
 @section('main')
 <div>
@@ -9,7 +9,7 @@
     <p>スレッドを作成しました。5秒後に作成したスレッドを表示します。</p>
     @else
     <p>スレッドの作成に失敗しました。</p>
-    <a href="/index">トップへ</a>
+    <a href="{{route('index')}}">トップへ</a>
     @endisset
 </div>
 @endsection

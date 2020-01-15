@@ -22,7 +22,7 @@
             @endforeach
         </ul>
         @endif
-        <form class="form-group" action="/thread/{{$thread->threadId}}/confirm" method="post" enctype="multipart/form-data">
+        <form class="form-group" action="{{route('postconfirm', ['threadId' => $thread->threadId])}}" method="post" enctype="multipart/form-data">
             @csrf
             <label>名前：</label><br>
             <input type="text" name="name" value="{{old('name', '')}}"><br>
@@ -33,6 +33,6 @@
             <input class="btn btn-primary" type="submit" name="submit" value="送信"/>
         </form>
     </div>
-    <a href="/index">トップページへ</a>
+    <a href="{{route('index')}}">トップページへ</a>
 </div>
 @endsection

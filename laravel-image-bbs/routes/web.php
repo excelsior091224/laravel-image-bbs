@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index')->name('index');
 
-Route::get('test', 'IndexController@test');
-Route::get('index', 'IndexController@index');
-Route::post('index/confirm', 'IndexController@confirm');
-Route::post('index/success', 'IndexController@success');
-Route::get('index/listofposts', 'IndexController@listofposts');
-Route::get('thread/{threadId}', 'ThreadController@thread');
-Route::post('/thread/{threadId}/confirm', 'ThreadController@confirm');
-Route::post('/thread/{threadId}/success', 'ThreadController@success');
+Route::get('index', function () {
+    // return view('welcome');
+    return redirect('/');
+});
+Route::post('confirm', 'IndexController@confirm')->name('threadconfirm');
+Route::post('success', 'IndexController@success')->name('threadsuccess');
+Route::get('listofposts', 'IndexController@listofposts')->name('listofposts');
+Route::get('thread/{threadId}', 'ThreadController@thread')->name('thread');
+Route::post('/thread/{threadId}/confirm', 'ThreadController@confirm')->name('postconfirm');
+Route::post('/thread/{threadId}/success', 'ThreadController@success')->name('postsuccess');
