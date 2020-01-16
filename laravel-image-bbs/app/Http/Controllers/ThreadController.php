@@ -12,8 +12,14 @@ use Illuminate\Support\Facades\Storage;
 class ThreadController extends Controller
 {
     //
-    public function thread($threadId)
+    public function thread($threadId, Request $req)
     {
+        if($req->session()->get('filename'))
+        {
+            Storage::delete('public/tmp/'.$req->session()->get('filename'));
+            $req->session()->forget('filename');
+        }
+        
         $result = Thread::where('threadId',$threadId)->first();
         return view('view.thread',[
             'thread' => $result
@@ -36,58 +42,40 @@ class ThreadController extends Controller
             'imageFile.mimes' => '画像の形式はJPEGかPNGでなければいけません。'
             ];
         
-        $validator = Validator::make($req->except('imageFile'), [
+        $validator = $req->validate([
             'name' => 'required',
             'text' => 'required',
-        ], $messages);
+            'imageFile' => 'nullable|file|image|mimes:jpeg,png'
+        ], [
+            'name.required' => '名前が入力されていません。',
+            'text.required' => '本文が入力されていません。',
+            'imageFile.file' => 'アップロードされるのはファイルでなければいけません。',
+            'imageFile.image' => 'アップロードするのは画像ファイルでなければいけません。',
+            'imageFile.mimes' => '画像の形式はJPEGかPNGでなければいけません。'
+            ]);
         
-        if ($validator->fails()) {
-            return redirect('/thread/'.$threadId)
-            ->withErrors($validator)
-            ->withInput();
+        $name = htmlspecialchars($req->name);
+        $text = htmlspecialchars($req->text);
+        $req->session()->put('name', $name);
+        $req->session()->put('text', $text);
+        
+        if ($req->hasFile('imageFile')) {
+            $path = $req->imageFile->store('public/tmp');
+            $filename = basename($path);
+            $req->session()->put('filename', $filename);
+            return view('view.postconfirm', [
+                'thread' => $result,
+                'name'=>$name,
+                'text'=>$text,
+                'filename'=>$filename
+                ]);
         } else {
-            $name = htmlspecialchars($req->name);
-            $text = htmlspecialchars($req->text);
-            $req->session()->put('name', $name);
-            $req->session()->put('text', $text);
-            
-            if ($req->hasFile('imageFile')) {
-                $validator2 = Validator::make($req->only('imageFile'), [
-                    'imageFile' => [
-                        'file',
-                        'image',
-                        'mimes:jpeg,png'
-                        ]], $messages2);
-                
-                if ($validator2->fails()) {
-                    return redirect('/thread/'.$threadId)
-                    ->withErrors($validator2)
-                    ->withInput();
-                    
-                } else {
-                    if ($req->file('imageFile')->isValid()) {
-                        $path = $req->imageFile->store('public/tmp');
-                        $filename = basename($path);
-                        $req->session()->put('filename', $filename);
-                        return view('view.postconfirm', [
-                            'thread' => $result,
-                            'name'=>$name,
-                            'text'=>$text,
-                            'filename'=>$filename
-                            ]);
-                        
-                    }
-                    
-                }
-            } else {
-                return view('view.postconfirm', [
-                    'thread' => $result,
-                    'name'=>$name,
-                    'text'=>$text
-                    ]);
-            }
+            return view('view.postconfirm', [
+                'thread' => $result,
+                'name'=>$name,
+                'text'=>$text
+                ]);
         }
-
     }
     
     public function success($threadId, Request $req)

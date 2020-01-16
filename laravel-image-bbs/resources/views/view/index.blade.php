@@ -6,14 +6,12 @@
     <hr>
     <div id="form">
         <h5>スレッド作成</h5>
-        @if(session('error1'))
-        <p>{{session('error1')}}</p>
-        @endif
-        @if(session('error2'))
-        <p>{{session('error2')}}</p>
-        @endif
-        @if(session('error3'))
-        <p>{{session('error3')}}</p>
+        @if($errors->any())
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+            @endforeach
+        </ul>
         @endif
         <form class="col-sm" action="{{route('threadconfirm')}}" method="post" enctype="multipart/form-data">
             @csrf

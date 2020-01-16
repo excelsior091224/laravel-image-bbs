@@ -14,120 +14,64 @@ class IndexController extends Controller
 {
     public function index(Request $req)
     {
+        if($req->session()->get('filename'))
+        {
+            Storage::delete('public/tmp/'.$req->session()->get('filename'));
+            $req->session()->forget('filename');
+        }
+        
         $results = Thread::orderBy('last_posted', 'desc')->get();
 
-        if ($req->session()->exists('errors')) {
-            return view('view.index', [
-                'errors'=> $req->session()->get('errors'),
-                'threads' => $results
-                ]);
-        } else {
-            return view('view.index',[
-                'threads' => $results
-                ]);
-        }
+        return view('view.index',[
+            'threads' => $results
+            ]);
     }
     
     public function confirm(Request $req)
     {
-        $messages = [
-            'threadname.required' => 'スレッド名が入力されていません。',
-            'name.required' => '名前が入力されていません。',
-            'text.required' => '本文が入力されていません。'
-            ];
-        
-        $messages2 = [
-            'imageFile.file' => 'アップロードされるのはファイルでなければいけません。',
-            'imageFile.image' => 'アップロードするのは画像ファイルでなければいけません。',
-            'imageFile.mimes' => '画像の形式はJPEGかPNGでなければいけません。'
-            ];
-        
-        $validator = Validator::make($req->except('imageFile'), [
+        $validator = $req->validate([
             'threadname' => 'required',
             'name' => 'required',
             'text' => 'required',
-        ], $messages);
+            'imageFile' => 'nullable|file|image|mimes:jpeg,png'
+        ], [
+            'threadname.required' => 'スレッド名が入力されていません。',
+            'name.required' => '名前が入力されていません。',
+            'text.required' => '本文が入力されていません。',
+            'imageFile.file' => 'アップロードされるのはファイルでなければいけません。',
+            'imageFile.image' => 'アップロードするのは画像ファイルでなければいけません。',
+            'imageFile.mimes' => '画像の形式はJPEGかPNGでなければいけません。'
+            ]);
         
-        if ($validator->fails()) {
-            return redirect('/index')
-            ->withErrors($validator)
-            ->withInput();
-        } else {
-            $threadname = htmlspecialchars($req->threadname);
-            $name = htmlspecialchars($req->name);
-            $text = htmlspecialchars($req->text);
-            
-            $req->session()->put('threadname', $threadname);
-            $req->session()->put('name', $name);
-            $req->session()->put('text', $text);
-            
-            if ($req->hasFile('imageFile')) {
-                $validator2 = Validator::make($req->only('imageFile'), [
-                    'imageFile' => [
-                        'file',
-                        'image',
-                        'mimes:jpeg,png'
-                        ]], $messages2);
-                
-                if ($validator2->fails()) {
-                    return redirect('/thread/'.$threadId)
-                    ->withErrors($validator2)
-                    ->withInput();
-                    
-                } else {
-                    if ($req->file('imageFile')->isValid()) {
-                        $path = $req->imageFile->store('public/tmp');
-                        $filename = basename($path);
-                        $req->session()->put('filename', $filename);
-                        return view('view.threadconfirm', [
-                            'threadname'=>$threadname,
-                            'name'=>$name,
-                            'text'=>$text,
-                            'filename'=>$filename
-                            ]);
-                    }
-                }
-            } else {
-                return view('view.threadconfirm', [
-                    'threadname'=>$threadname,
-                    'name'=>$name,
-                    'text'=>$text
-                    ]);
+        $threadname = htmlspecialchars($req->threadname);
+        $name = htmlspecialchars($req->name);
+        $text = htmlspecialchars($req->text);
+        
+        $req->session()->put('threadname', $threadname);
+        $req->session()->put('name', $name);
+        $req->session()->put('text', $text);
+        
+        if ($req->hasFile('imageFile')) {
+            if ($req->file('imageFile')->isValid()) {
+            $path = $req->imageFile->store('public/tmp');
+            $filename = basename($path);
+            $req->session()->put('filename', $filename);
+            return view('view.threadconfirm', [
+                'threadname'=>$threadname,
+                'name'=>$name,
+                'text'=>$text,
+                'filename'=>$filename
+                ]);
             }
+        } else {
+            return view('view.threadconfirm', [
+                'threadname'=>$threadname,
+                'name'=>$name,
+                'text'=>$text
+                ]);
         }
-        
-        // $threadname = htmlspecialchars($req->threadname);
-        // $name = htmlspecialchars($req->name);
-        // $text = htmlspecialchars($req->text);
-        // if ($threadname === '') {
-        //     $errors['threadname'] = 'スレッド名が入力されていません。';
-        // }
-        // if ($name === '') {
-        //     $errors['name'] = '名前が入力されていません。';
-        // }
-        // if ($text === '') {
-        //     $errors['text'] = '本文が入力されていません。';
-        // }
-        // if (count($errors) === 0) {
-        //     $req->session()->put('threadname', $threadname);
-        //     $req->session()->put('name', $name);
-        //     $req->session()->put('text', $text);
-        //     return view('view.threadconfirm', [
-        //         'threadname'=>$threadname,
-        //         'name'=>$name,
-        //         'text'=>$text
-        //         ]);
-        // } else {
-        //     return redirect('index')
-        //     ->withInput()
-        //     ->with([
-        //         'error1' => $errors['threadname'],
-        //         'error2' => $errors['name'],
-        //         'error3' => $errors['text']
-        //         ]);
-        // }
     }
-    
+
     public function success(Request $req)
     {
         $threadname = $req->session()->pull('threadname','');
